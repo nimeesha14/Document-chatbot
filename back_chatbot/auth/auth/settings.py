@@ -162,8 +162,8 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
 # AWS S3 Settings
-AWS_ACCESS_KEY_ID = "" 
-AWS_SECRET_ACCESS_KEY = "" 
+AWS_ACCESS_KEY_ID = "Here_your_api_key" 
+AWS_SECRET_ACCESS_KEY = "Here_your_api_key" 
 AWS_STORAGE_BUCKET_NAME = "chatbotbucketfile"  
 AWS_S3_REGION_NAME = "us-east-1"  
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
@@ -185,5 +185,5 @@ REST_FRAMEWORK = {
 QDRANT_HOST = "http://localhost"
 QDRANT_PORT = 6333
 
-OPENROUTER_API_KEY = ""
+OPENROUTER_API_KEY = "Here_your_api_key"
 
