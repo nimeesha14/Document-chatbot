@@ -1,0 +1,182 @@
+<!-- {{message}} -->
+
+<div class="app-container">
+  <!-- Sidebar -->
+  <div class="max-h-screen overflow-y-auto scrollbar-thin">
+  <div class="sidebar">
+    <button class="new-chat-btn" (click)="startNewChat()">
+      <i class="bi bi-plus-lg me-2"></i>
+      New chat
+    </button>
+
+    <!-- Chat History -->
+    <div class="chat-history-section">
+      <h6 class="sidebar-heading">Chat History</h6>
+      <div *ngFor="let chat of chatHistoryList; let i = index"
+           class="chat-history-item"
+           [class.active]="currentChatIndex === i"
+           (click)="loadChat(i)">
+          <i class="bi bi-chat-left-text"></i>
+          <span class="chat-title">Chat {{ i + 1 }}</span>
+          <!-- <span class="chat-title">
+            {{ chat.uploadedText && chat.uploadedText.trim() !== '' ? chat.uploadedText : 'New Chat' }}
+          </span> -->
+          <div class="dropdown">
+            <button class="dropdown-btn"
+                    [class.active]="selectedDropdown === i"
+                    (click)="toggleDropdown(i); $event.stopPropagation()">
+              <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <div class="dropdown-item" *ngIf="selectedDropdown === i" (click)="deleteChat(i); $event.stopPropagation()">
+              <i class="bi bi-trash"></i>
+              Delete chat
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Uploaded Files Section -->
+    
+      <div class="files-dropdown">
+        <button class="files-dropdown-btn" (click)="toggleFilesDropdown()">
+          <h6 class="sidebar-heading">Uploaded Files</h6>
+          <i class="bi" [ngClass]="{'bi-chevron-down': !showMoreFiles, 'bi-chevron-up': showMoreFiles}"></i>
+        </button>
+        <div class="files-dropdown-content" *ngIf="showMoreFiles">
+          <div *ngIf="uploadedFiles && uploadedFiles.length > 0">
+            <div *ngFor="let file of uploadedFiles" class="file-list-item">
+              <i class="bi" [ngClass]="{
+                'bi-file-earmark-text': file.name.endsWith('.txt'),
+                'bi-file-earmark-pdf': file.name.endsWith('.pdf'),
+                'bi-file-earmark-word': file.name.endsWith('.doc') || file.name.endsWith('.docx')
+              }"></i>
+              <span class="file-name">{{ file.name }}</span>
+              <div class="file-actions">
+                <button class="file-action-btn" (click)="downloadFile(file)">
+                  <i class="bi bi-download"></i>
+                </button>
+                <button class="file-action-btn" (click)="deleteUploadedFile(file)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!uploadedFiles || uploadedFiles.length === 0" class="no-files">
+            No files uploaded
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+
+  <!-- Main Chat Area -->
+  <div class="main-content">
+
+    <!-- Messages Area -->
+    <div class="chat-container scrollable-messages">
+      <div class="notification-message" *ngIf="showNotification"
+        [class.success]="isLoggedIn"
+        [class.warning]="!isLoggedIn">
+         {{ notificationMessage }}
+      </div>
+      <div *ngFor="let msg of chatHistory"
+           [ngClass]="{'user-message': !msg.isChatbot, 'assistant-message': msg.isChatbot}">
+          <div class="message-content">{{ msg.message }}</div>
+        <!-- File information display -->
+        <div class="file-info" *ngIf="msg.fileName">
+          <div class="file-preview-card">
+
+            <div class="file-icon">
+              <i class="bi" [ngClass]="{
+                'bi-file-earmark-text': msg.fileName.endsWith('.txt'),
+                'bi-file-earmark-pdf': msg.fileName.endsWith('.pdf'),
+                'bi-file-earmark-word': msg.fileName.endsWith('.doc') || msg.fileName.endsWith('.docx')
+              }"></i>
+            </div>
+            <div class="file-details">
+              <span class="file-name">{{ msg.fileName }}</span>
+              <span class="file-type">{{ msg.fileName.split('.').pop()?.toUpperCase() }}</span>
+            </div>
+            <a class="download-link" [href]="msg.fileUrl" [download]="msg.fileName">
+              <i class="bi bi-download"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loading" class="message user-message">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      </div>
+
+
+  
+    <div class="input-area">
+      <div class="file-preview-area" *ngIf="selectedFile">
+        <div class="file-preview-card">
+          <div class="file-icon">
+            <i class="bi" [ngClass]="{
+              'bi-file-earmark-text': selectedFile.name.endsWith('.txt'),
+              'bi-file-earmark-pdf': selectedFile.name.endsWith('.pdf'),
+              'bi-file-earmark-word': selectedFile.name.endsWith('.doc') || selectedFile.name.endsWith('.docx')
+            }"></i>
+          </div>
+          <div class="file-details">
+            <div class="file-header">
+              <span class="file-name" [title]="selectedFile.name">{{ selectedFile.name }}</span>
+              <span class="file-size">{{ formatFileSize(selectedFile.size) }}</span>
+            </div>
+            <span class="file-type">{{ getFileType(selectedFile.name) }}</span>
+            <div class="upload-progress" *ngIf="isUploading">
+              <div class="progress-bar">
+                <div class="progress" [style.width.%]="uploadProgress"></div>
+              </div>
+              <span class="progress-text">{{ uploadProgress }}%</span>
+            </div>
+          </div>
+          <div class="file-actions">
+            <button class="cancel-upload-btn" *ngIf="isUploading" (click)="cancelUpload()">
+              <i class="bi bi-x-circle"></i>
+            </button>
+            <button class="remove-file-btn" *ngIf="!isUploading" (click)="removeSelectedFile()">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <button class="attachment-btn" (click)="handleButtonClick()">
+          <i class="bi bi-paperclip"></i>
+        </button>
+
+        <textarea class="message-input"
+                  [(ngModel)]="message"
+                  placeholder="Send a message..."
+                  (keyup.enter)="onInputTypeChange('text')"
+                  [disabled]="loading"
+                  rows="1"></textarea>
+
+        <button class="send-btn"
+                [disabled]="(!message.trim() && !selectedFile) || loading"
+                (click)="onInputTypeChange('text')">
+          <i class="bi" [ngClass]="loading ? 'bi-hourglass-split' : 'bi-send-fill'"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="file"
+       id="fileInput"
+       style="display: none;"
+       (change)="onFileSelected($event)"
+       accept=".pdf,.doc,.docx,.txt">
+

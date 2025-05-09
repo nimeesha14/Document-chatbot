@@ -1,0 +1,68 @@
+<main class="form-signin">
+    <form [formGroup]="registerForm" (submit)="submit()">
+        <h1 class="h3 mb-3 fw-normal">Please Register</h1>
+
+        
+
+        <div class="form-group mb-3">
+            <input type="text" 
+                   formControlName="name" 
+                   class="form-control" 
+                   placeholder="Name" 
+                   required
+                   [class.is-invalid]="submitted && registerForm.get('name')?.invalid">
+            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('name')?.errors?.['required']">
+                Name is required
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <input type="email" 
+                   formControlName="email" 
+                   class="form-control" 
+                   placeholder="Email" 
+                   required
+                   [class.is-invalid]="submitted && registerForm.get('email')?.invalid">
+            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('email')?.errors">
+                <ul class="mb-0 list-unstyled">
+                    <li>Email is required</li>
+                    <li *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group mb-3 password-field">
+            <input [type]="showPassword ? 'text' : 'password'"
+                   formControlName="password" 
+                   class="form-control" 
+                   placeholder="Password" 
+                   required
+                   [class.is-invalid]="submitted && registerForm.get('password')?.invalid">
+            <button type="button" 
+                    class="password-toggle"
+                    (click)="togglePasswordVisibility()">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </button>
+            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('password')?.errors">
+                <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
+                <div *ngIf="registerForm.get('password')?.errors && !registerForm.get('password')?.errors?.['required']">
+                    Password requirements not met:
+                    <ul class="mb-0">
+                        <li *ngIf="registerForm.get('password')?.errors?.['minLength']">Must be at least 8 characters</li>
+                        <li *ngIf="registerForm.get('password')?.errors?.['uppercase']">Must contain at least one uppercase letter</li>
+                        <li *ngIf="registerForm.get('password')?.errors?.['lowercase']">Must contain at least one lowercase letter</li>
+                        <li *ngIf="registerForm.get('password')?.errors?.['specialChar']">Must contain at least one special character</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+            Register
+        </button>
+        <div class="mt-3 text-center">
+            <p>Have an account?<a routerLink="/login">login</a></p>
+        </div>
+    </form>
+</main>

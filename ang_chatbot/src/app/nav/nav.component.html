@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" routerLink="/login">
+            <i class="bi bi-chat-dots-fill"></i>
+            <span>Chatbot</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto" *ngIf="!authenticated">
+                
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/register" routerLinkActive="active">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Register</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto" *ngIf="authenticated">
+                
+                <li class="nav-item">
+                    <a class="nav-link" style="cursor: pointer;" (click)="logout()">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+    

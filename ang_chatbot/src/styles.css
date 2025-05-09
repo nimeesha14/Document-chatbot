@@ -1,0 +1,311 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #67b26f;
+  --dark-color: #2c3e50;
+  --light-color: #f8f9fa;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Common styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Form styles */
+.form-signin {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  margin: 50px auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-signin:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.form-signin .form-control {
+  height: auto;
+  padding: 12px 16px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 2px solid #e1e1e1;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.form-signin .form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+  background: white;
+}
+
+.form-signin h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--dark-color);
+  font-weight: 600;
+  font-size: 2rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(74, 144, 226, 0.3);
+  background: linear-gradient(45deg, #5a9ee2, #77c27f);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Password field styles */
+.password-field {
+  position: relative;
+}
+
+.password-field .form-control {
+  padding-right: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: var(--primary-color);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.password-toggle:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.password-toggle .bi {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Form validation styles */
+.invalid-feedback {
+  font-size: 0.875rem;
+  color: var(--danger-color);
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+}
+
+.form-control.is-invalid {
+  border-color: var(--danger-color);
+  background-image: none;
+  margin-bottom: 0;
+}
+
+/* Alert styles */
+.alert {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-danger {
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+  border-left: 4px solid var(--danger-color);
+}
+
+/* Navigation styles */
+.navbar {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  padding: 1rem 0;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: white !important;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand i {
+  font-size: 1.5rem;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 16px;
+  margin: 0 15px;
+  padding: 8px 16px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.nav-link i {
+  font-size: 1.1rem;
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .form-signin {
+    margin: 20px;
+    padding: 1.5rem;
+  }
+  
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-link {
+    margin: 5px 0;
+    padding: 8px;
+  }
+  
+  .form-signin h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Chat container styles */
+.chat-container {
+  background: rgba(255, 255, 255, 0.95);
+  /* border-radius: 15px; */
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 400px;
+  overflow-y: auto;
+}
+
+.message-input-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.message-input-container input {
+  flex: 1;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.message-input-container input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+  outline: none;
+}
+
+.message-input-container button {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.message-input-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.message-input-container button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
